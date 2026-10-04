@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>3Dede.online — Fikirden Gerçeğe | Çok Yakında</title>
+  <meta name="description" content="3Dede.online — Fikirden Gerçeğe. Çok yakında sizlerle buluşuyoruz. 3D baskı, tasarım ve üretim hizmetleri." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="3Dede.online — Çok Yakında" />
+  <meta property="og:description" content="Fikirden Gerçeğe. Çok yakında sizlerle buluşuyoruz." />
+  <meta property="og:url" content="https://3dede.online" />
+  <meta property="og:image" content="https://3dede.online/assets/logo.png" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="canonical" href="https://3dede.online/" />
+
+  <!-- Preload logo -->
+  <link rel="preload" as="image" href="assets/logo.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #d4a843;
+      --gold-light: #f0d078;
+      --gold-dark: #a07828;
+      --silver: #c0c0c0;
+      --bg: #0a0a0a;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --text: #e8e8e8;
+      --text-muted: #888888;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ========== ANIMATED BACKGROUND ========== */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212, 168, 67, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(212, 168, 67, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(212, 168, 67, 0.03) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    /* Subtle grid overlay */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(212, 168, 67, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 168, 67, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFloat linear infinite;
+    }
+
+    @keyframes particleFloat {
+      0%   { opacity: 0; transform: translateY(100vh) scale(0); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.6; }
+      100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+    }
+
+    /* Orbital ring glow */
+    .orbital-glow {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 700px;
+      height: 700px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 67, 0.06);
+      z-index: 0;
+      animation: orbitalPulse 8s ease-in-out infinite;
+    }
+
+    .orbital-glow::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 67, 0.04);
+      animation: orbitalSpin 30s linear infinite;
+    }
+
+    .orbital-glow::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--gold), 0 0 60px rgba(212, 168, 67, 0.3);
+      animation: orbitalDot 20s linear infinite;
+      transform-origin: 0 354px;
+    }
+
+    @keyframes orbitalPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      50%      { transform: translate(-50%, -50%) scale(1.05); opacity: 0.7; }
+    }
+
+    @keyframes orbitalSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes orbitalDot {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* ========== MAIN CONTENT ========== */
+    .main-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    /* ========== LOGO ========== */
+    .logo-container {
+      position: relative;
+      margin-bottom: 48px;
+      animation: logoReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .logo-container img {
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 40px rgba(212, 168, 67, 0.25))
+              drop-shadow(0 0 80px rgba(212, 168, 67, 0.1));
+      transition: filter 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo-container:hover img {
+      filter: drop-shadow(0 0 50px rgba(212, 168, 67, 0.35))
+              drop-shadow(0 0 100px rgba(212, 168, 67, 0.15));
+      transform: scale(1.04);
+    }
+
+    @keyframes logoReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        filter: blur(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /* ========== HEADINGS ========== */
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border: 1px solid rgba(212, 168, 67, 0.3);
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      background: rgba(212, 168, 67, 0.06);
+      animation: badgeReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .coming-soon-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.4); }
+      50%      { opacity: 0.6; box-shadow: 0 0 0 8px rgba(212, 168, 67, 0); }
+    }
+
+    @keyframes badgeReveal {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .main-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      text-align: center;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      animation: headingReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }
+
+    .main-heading .gold {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .main-heading .silver {
+      background: linear-gradient(135deg, #e8e8e8 0%, var(--silver) 50%, #999 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes headingReveal {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .sub-heading {
+      font-size: clamp(16px, 2.2vw, 20px);
+      font-weight: 400;
+      line-height: 1.7;
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 48px;
+      animation: headingReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+    }
+
+    .sub-heading strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ========== FEATURES STRIP ========== */
+    .features {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+      animation: headingReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+    }
+
+    .feature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .feature-chip:hover {
+      border-color: rgba(212, 168, 67, 0.3);
+      color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .feature-chip svg {
+      width: 16px;
+      height: 16px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ========== DIVIDER ========== */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin-bottom: 48px;
+      animation: headingReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
+    }
+
+    /* ========== CONTACT SECTION ========== */
+    .contact-section {
+      text-align: center;
+      animation: headingReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both;
+    }
+
+    .contact-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .contact-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: rgba(212, 168, 67, 0.08);
+      border: 1px solid rgba(212, 168, 67, 0.2);
+      border-radius: 12px;
+      color: var(--gold-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      background: rgba(212, 168, 67, 0.15);
+      border-color: rgba(212, 168, 67, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212, 168, 67, 0.15);
+    }
+
+    .contact-link svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      position: relative;
+      z-index: 1;
+      padding: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.5px;
+    }
+
+    .site-footer .gold-text {
+      color: rgba(212, 168, 67, 0.4);
+    }
+
+    /* ========== SCROLL INDICATOR ========== */
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.3;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
+      50%      { transform: translateX(-50%) translateY(8px); opacity: 0.6; }
+    }
+
+    /* ========== SPARKLE ANIMATION ON HEADING ========== */
+    .sparkle-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .sparkle-wrapper::before,
+    .sparkle-wrapper::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold);
+      font-size: 14px;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+
+    .sparkle-wrapper::before {
+      top: -8px;
+      right: -20px;
+      animation-delay: 0s;
+    }
+
+    .sparkle-wrapper::after {
+      bottom: -4px;
+      left: -18px;
+      font-size: 10px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+      50%      { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .logo-container img {
+        width: 170px;
+        height: 170px;
+      }
+
+      .logo-container {
+        margin-bottom: 36px;
+      }
+
+      .main-heading {
+        letter-spacing: -0.5px;
+      }
+
+      .features {
+        gap: 8px;
+      }
+
+      .feature-chip {
+        padding: 8px 14px;
+        font-size: 12px;
+      }
+
+      .orbital-glow {
+        width: 400px;
+        height: 400px;
+      }
+
+      .orbital-glow::after {
+        transform-origin: 0 204px;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .contact-link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container img {
+        width: 140px;
+        height: 140px;
+      }
+
+      .coming-soon-badge {
+        font-size: 10px;
+        letter-spacing: 2px;
+        padding: 6px 16px;
+      }
+
+      .orbital-glow {
+        width: 300px;
+        height: 300px;
+      }
+
+      .orbital-glow::after {
+        transform-origin: 0 154px;
+      }
+    }
+
+    /* ========== REDUCED MOTION ========== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="bg-gradient" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orbital-glow" aria-hidden="true"></div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <!-- Main content -->
+  <main class="main-wrapper">
+
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="3Dede.online Logo — Fikirden Gerçeğe" width="220" height="220" />
+    </div>
+
+    <!-- Badge -->
+    <div class="coming-soon-badge">
+      <span class="dot"></span>
+      Çok Yakında
+    </div>
+
+    <!-- Heading -->
+    <h1 class="main-heading">
+      <span class="sparkle-wrapper"><span class="gold">Fikirden</span></span> <span class="silver">Gerçeğe</span><br />
+      Çok Yakında <span class="gold">Hizmetinizdeyiz</span>
+    </h1>
+
+    <!-- Subheading -->
+    <p class="sub-heading">
+      <strong>3Dede.online</strong> olarak sizlere en kaliteli hizmeti sunmak için
+      hazırlanıyoruz. Çok yakında burada olacağız.
+    </p>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+        3D Baskı
+      </div>
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        Tasarım
+      </div>
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        Üretim
+      </div>
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        Kalite
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- Contact -->
+    <div class="contact-section">
+      <p class="contact-label">İletişime Geçin</p>
+      <div class="contact-links">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/905511448307?text=Merhaba%2C%203Dede.online%20hakkında%20bilgi%20almak%20istiyorum." class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile iletişime geç">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com/3dede.online" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram hesabını ziyaret et">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          Instagram
+        </a>
+
+        <!-- E-posta -->
+        <a href="mailto:info@3dede.online" class="contact-link" aria-label="E-posta gönder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          E-posta
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    © 2026 <span class="gold-text">3Dede.online</span> — Fikirden Gerçeğe. Tüm hakları saklıdır.
+  </footer>
+
+  <!-- Particle generator -->
+  <script>
+    (function () {
+      'use strict';
+
+      var container = document.getElementById('particles');
+      if (!container) return;
+
+      /* Reduce for mobile */
+      var isMobile = window.innerWidth < 768;
+      var count = isMobile ? 15 : 30;
+
+      for (var i = 0; i < count; i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.width = p.style.height = (Math.random() * 2 + 1.5) + 'px';
+        p.style.animationDuration = (Math.random() * 12 + 10) + 's';
+        p.style.animationDelay = (Math.random() * 15) + 's';
+        p.style.opacity = '0';
+        container.appendChild(p);
+      }
+
+      /* Reduced motion check */
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        container.style.display = 'none';
+      }
+    })();
+  </script>
+
+</body>
+</html>
